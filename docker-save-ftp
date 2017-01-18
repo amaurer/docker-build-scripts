@@ -1,0 +1,24 @@
+#!/bin/bash
+# docker-save-ftp 192.168.2.1 username password "containerimage" destination 
+# 
+
+HOST=$1
+USER=$2
+PASSWD=$3
+IMAGE=$4
+DEST=$5
+FILE=$IMAGE.dkrsv
+FILE=${FILE/:/-}
+FILE=${FILE/\//-}
+
+echo Saving Docker Image as file $FILE
+docker save -o $FILE $IMAGE
+
+echo FTPing Image File
+ftp -n $HOST <<End-Of-Session
+user $USER "$PASSWD"
+cd $DEST
+binary
+put "$FILE"
+bye
+End-Of-Session
