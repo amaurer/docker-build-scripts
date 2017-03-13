@@ -1,0 +1,11 @@
+#!/bin/sh
+# docker-save-scp 192.168.2.1 username password file1.txt dest
+# 
+HOST=$1
+USER=$2
+PASSWD=$3
+FILE=$4
+DEST=$4
+
+
+scp $FILE $USER@$HOST:$DEST
